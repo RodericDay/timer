@@ -1,0 +1,27 @@
+html {
+    background-color: lightGray;
+    text-align: center;
+    width: 300;
+    margin-left: auto;
+    margin-right: auto;
+}
+.counter {
+    background-color: white;
+    font-family: sans-serif;
+    font-family: courier;
+    font-size: 20;
+    height: 200;
+    border: 1px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+button {
+    height: 100;
+    width: 142;
+}
+.pressed {
+    color: blue;
+}

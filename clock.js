@@ -1,9 +1,12 @@
 function initialize() {
     ticInterval = 1000;
+    if (window.location.href.indexOf('debug') > -1) { ticInterval /= 5 };
     ticsPerSet = 60;
     setCount = 10;
     ticsBase = ticsPerSet * setCount;
     counter = document.createElement("div");
+    counter.className = "counter"
+    counter.innerHTML = "Press start!"
     startButton = document.createElement("button");
     startButton.innerHTML = "Start";
     startButton.onclick = start;
@@ -48,8 +51,8 @@ function timeout() {
     }
     remainingTimeToTic -= elapsedTime;
     if (remainingTimeToTic < 0) {
-        tic();
         remainingTimeToTic = ticInterval + remainingTimeToTic;
+        tic();
     }
 }
 
@@ -57,7 +60,6 @@ function tic() {
     ticsRemaining -= 1;
     ticsRemainingInSet = ticsRemaining%ticsPerSet;
     setsRemaining = ticsRemaining/ticsPerSet|0;
-    counter.innerHTML = '~' + setsRemaining + '@' + ticsRemainingInSet;
     if (ticsRemainingInSet%30 < 6) {
         toc.currentTime = 0;
         toc.play();
@@ -70,4 +72,7 @@ function tic() {
         cheer.play()
         window.clearInterval(interval);
     }
+    counter.innerHTML = 'leftover:<br>';
+    counter.innerHTML += ticsRemainingInSet + ' seconds<br>';
+    counter.innerHTML += setsRemaining + ' sets';
 }
