@@ -1,22 +1,17 @@
 html {
     background-color: lightGray;
-    text-align: center;
     width: 300;
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
 .counter {
     background-color: white;
-    font-family: sans-serif;
     font-family: courier;
-    font-size: 20;
-    height: 200;
-    border: 1px solid black;
-
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
+    font-size: 90;
+    height: 100;
+    width: 142;
+    text-align: right;
 }
 button {
     height: 100;

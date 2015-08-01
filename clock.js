@@ -1,35 +1,36 @@
-function initialize() {
+window.onload = function() {
     ticInterval = 1000;
-    if (window.location.href.indexOf('debug') > -1) { ticInterval /= 5 };
-    ticsPerSet = 60;
-    setCount = 10;
-    ticsBase = ticsPerSet * setCount;
-    counter = document.createElement("div");
-    counter.className = "counter"
-    counter.innerHTML = "Press start!"
+
+    minutes = document.createElement("input");
+    minutes.value = 10;
+    minutes.className = "counter";
+    seconds = document.createElement("input");
+    seconds.value = 10;
+    seconds.className = "counter";
+
     startButton = document.createElement("button");
     startButton.innerHTML = "Start";
     startButton.onclick = start;
+
     pauseButton = document.createElement("button");
     pauseButton.innerHTML = "Pause";
     pauseButton.onclick = pause;
     pauseButton.disabled = true;
-    [counter, startButton, pauseButton].map(append);
+
+    [minutes, seconds, startButton, pauseButton].map(function append(e) {
+        document.body.appendChild(e);
+    });
     startButton.focus();
 
-    toc = document.getElementById("tic");
-    bell = document.getElementById("bell");
-    cheer = document.getElementById("cheer");
-}
-
-function append(e) {
-    document.body.appendChild(e);
+    // test all sounds
+    if (window.location.href.indexOf('debug') > -1) { minutes.value=2; ticInterval /= 50; }
 }
 
 function start() {
+    [].forEach.call(document.querySelectorAll("audio"), function(el){el.preload});
     lastTime = new Date().getTime();
     remainingTimeToTic = ticInterval;
-    ticsRemaining = ticsBase;
+    ticsRemaining = minutes.value*60 + seconds.value*1|0;
     interval = window.setInterval(timeout, 1);
     startButton.disabled = true;
     pauseButton.disabled = false;
@@ -58,21 +59,17 @@ function timeout() {
 
 function tic() {
     ticsRemaining -= 1;
-    ticsRemainingInSet = ticsRemaining%ticsPerSet;
-    setsRemaining = ticsRemaining/ticsPerSet|0;
-    if (ticsRemainingInSet%30 < 6) {
-        toc.currentTime = 0;
-        toc.play();
-    }
-    if (ticsRemainingInSet%30 == 0) {
-        bell.currenTime = 0;
-        bell.play();
-    }
-    if (setsRemaining==0 && ticsRemainingInSet==0) {
-        cheer.play()
+    minutes.value = ticsRemaining/60|0;
+    seconds.value = ticsRemaining%60;
+    if (seconds.value < 10) { seconds.value = '0' + seconds.value }
+
+    [].forEach.call(
+        document.querySelectorAll("audio.s"+seconds.value),
+        function(el){el.currentTime=0; el.play();}
+    )
+
+    if (ticsRemaining==0) {
         window.clearInterval(interval);
+        document.querySelector("audio.end").play();
     }
-    counter.innerHTML = 'leftover:<br>';
-    counter.innerHTML += ticsRemainingInSet + ' seconds<br>';
-    counter.innerHTML += setsRemaining + ' sets';
 }
