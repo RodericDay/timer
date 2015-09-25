@@ -1,21 +1,22 @@
 html {
-    background-color: lightGray;
     width: 300;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
 .counter {
     background-color: white;
     font-family: courier;
-    font-size: 90;
+    font-size: 50;
     height: 100;
     width: 142;
-    text-align: right;
+    text-align: center;
 }
-button {
+input {
     height: 100;
     width: 142;
+    -webkit-appearance: none;
+    border-radius: 0;
+    border: none;
+    background-color: white;
 }
 .pressed {
     color: blue;

@@ -8,12 +8,14 @@ window.onload = function() {
     seconds.value = 10;
     seconds.className = "counter";
 
-    startButton = document.createElement("button");
-    startButton.innerHTML = "Start";
+    startButton = document.createElement("input");
+    startButton.type = "button";
+    startButton.value = "Start";
     startButton.onclick = start;
 
-    pauseButton = document.createElement("button");
-    pauseButton.innerHTML = "Pause";
+    pauseButton = document.createElement("input");
+    pauseButton.type = "button";
+    pauseButton.value = "Pause";
     pauseButton.onclick = pause;
     pauseButton.disabled = true;
 
