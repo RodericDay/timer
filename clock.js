@@ -1,77 +1,70 @@
-window.onload = function() {
-    ticInterval = 1000;
+interval = window.setInterval(update, 50);
 
-    minutes = document.createElement("input");
-    minutes.value = 10;
-    minutes.className = "counter";
-    seconds = document.createElement("input");
-    seconds.value = 10;
-    seconds.className = "counter";
-
-    startButton = document.createElement("input");
-    startButton.type = "button";
-    startButton.value = "Start";
-    startButton.onclick = start;
-
-    pauseButton = document.createElement("input");
-    pauseButton.type = "button";
-    pauseButton.value = "Pause";
-    pauseButton.onclick = pause;
-    pauseButton.disabled = true;
-
-    [minutes, seconds, startButton, pauseButton].map(function append(e) {
-        document.body.appendChild(e);
-    });
-    startButton.focus();
-
-    // test all sounds
-    if (window.location.href.indexOf('debug') > -1) { minutes.value=2; ticInterval /= 50; }
+var constants = {
+    setCount: 20,
+    setLength: 30,
+    bufferLength: 5,
+    speed: 1,
 }
 
-function start() {
-    [].forEach.call(document.querySelectorAll("audio"), function(el){el.preload});
-    lastTime = new Date().getTime();
-    remainingTimeToTic = ticInterval;
-    ticsRemaining = minutes.value*60 + seconds.value*1|0;
-    interval = window.setInterval(timeout, 1);
-    startButton.disabled = true;
-    pauseButton.disabled = false;
-    pauseButton.classList.remove("pressed");
-    pauseButton.focus();
+var state = {
+    last: new Date(),
+    active: false,
+    setsLeft: constants.setCount,
+    secondsLeft: constants.bufferLength,
+    millisecondsLeft: 0,
 }
 
-function pause() {
-    pauseButton.classList.toggle("pressed");
-    startButton.disabled = !pauseButton.classList.contains("pressed");
-}
-
-function timeout() {
-    currentTime = new Date().getTime();
-    elapsedTime = currentTime - lastTime;
-    lastTime = currentTime;
-    if (pauseButton.classList.contains("pressed")) {
-        return
+function update() {
+    var tt = new Date();
+    if (state.active) {
+        state.millisecondsLeft -= (tt - state.last);
+        if (state.millisecondsLeft < 0) {
+            state.millisecondsLeft += 1000/constants.speed;
+            state.secondsLeft -= 1;
+            if (state.secondsLeft < 5) {
+                tic.currentTime = 0;
+                tic.play();
+            }
+        }
+        if (state.secondsLeft < 0) {
+            state.secondsLeft += constants.setLength;
+            state.setsLeft -= 1;
+            bell.currentTime = 0;
+            bell.play();
+        }
+        if (state.setsLeft < 0) {
+            cheer.play();
+            clearInterval(interval);
+            document.title = 'Timer';
+            return
+        }
     }
-    remainingTimeToTic -= elapsedTime;
-    if (remainingTimeToTic < 0) {
-        remainingTimeToTic = ticInterval + remainingTimeToTic;
-        tic();
-    }
+    state.last = tt;
+    updateDisplay();
 }
 
-function tic() {
-    ticsRemaining -= 1;
-    minutes.value = ticsRemaining/60|0;
-    seconds.value = ticsRemaining%60;
-    if (seconds.value < 10) { seconds.value = '0' + seconds.value }
+function updateDisplay() {
+    /* fake regular timer display from arbitary state */
+    var A = parseInt(state.setsLeft/2);
+    var B = 2*A === state.setsLeft ? 0 : 30;
+    var C = state.secondsLeft+B;
+    var D = parseInt(state.millisecondsLeft/100);
+    var formatted = A+":"+('00'+C).slice(-2)+'.'+D;
+    document.title = state.active ? formatted : "Timer";
+    display.textContent = formatted;
+    /* ui state */
+    actionButton.textContent = state.active ? "stop" : "start";
+    resetButton.disabled = state.active;
+}
 
-    [].forEach.call(
-        document.querySelectorAll("audio.s"+seconds.value),
-        function(el){el.currentTime=0; el.play();}
-    )
+function toggle(button) {
+    state.active = !state.active;
+}
 
-    if (ticsRemaining==0) {
-        window.clearInterval(interval);
-        document.querySelector("audio.end").play();
-    }
+function reset() {
+    state.active = false;
+    state.setsLeft = constants.setCount;
+    state.secondsLeft = constants.bufferLength;
+    state.millisecondsLeft = 0;
 }

@@ -1,23 +1,15 @@
-html {
-    width: 300;
-    margin: 0 auto;
-}
-.counter {
-    background-color: white;
-    font-family: courier;
-    font-size: 50;
-    height: 100;
-    width: 142;
+body {
+    margin: 100 auto;
     text-align: center;
+    background-color: black;
 }
-input {
-    height: 100;
-    width: 142;
-    -webkit-appearance: none;
-    border-radius: 0;
-    border: none;
+#display {
+    color: white;
+    font-size: 100pt;
+}
+button {
+    font-size: 15pt;
     background-color: white;
-}
-.pressed {
-    color: blue;
+    border: none;
+    padding: 10px 20px;
 }

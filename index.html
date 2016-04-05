@@ -1,13 +1,17 @@
 <html>
   <head>
-    <title>Timer</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.6," />
     <link rel="shortcut icon" href="clock.ico"/>
     <link rel="stylesheet" type="text/css" href="clock.css"/>
-    <audio id="tic" class="s05 s04 s03 s02 s01 s35 s34 s33 s32 s31" src="sound_tic.mp3" preload="auto"></audio>
-    <audio id="bell" class="s00 s30" src="sound_bell.mp3" preload="auto"></audio>
+    <audio id="tic" src="sound_tic.mp3" preload="auto"></audio>
+    <audio id="bell" src="sound_bell.mp3" preload="auto"></audio>
     <audio id="cheer" class="end" src="sound_cheer.wav" preload="auto"></audio>
     <script src="clock.js"></script>
   </head>
+  <body>
+    <div id="display"></div>
+    <button id="actionButton" onclick="toggle(this)" autofocus>start</button>
+    <button id="resetButton" onclick="reset()">reset</button>
+  </body>
 </html>
