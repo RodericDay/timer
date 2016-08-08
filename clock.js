@@ -1,5 +1,41 @@
-interval = window.setInterval(update, 50);
+var audioCtx = new (window.AudioContext || window.webkitAudioContext);
 
+class Sound {
+
+    constructor(path)
+    {
+        var self = this;
+
+        function decode(event) {
+            audioCtx.decodeAudioData(event.target.response, buffer);
+        }
+        function buffer(decodedBuffer) {
+            self.bufferedSound = decodedBuffer;
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', path, true);
+        xhr.responseType = 'arraybuffer';
+        xhr.addEventListener("load", decode);
+        xhr.send();
+    }
+
+
+    play()
+    {
+        var source = audioCtx.createBufferSource();
+        source.buffer = this.bufferedSound;
+        source.connect(audioCtx.destination);
+        source.start(0);
+    }
+
+}
+
+var tic = new Sound('sound_tic.mp3');
+var bell = new Sound('sound_bell.mp3');
+var cheer = new Sound('sound_cheer.wav');
+
+var interval = window.setInterval(update, 50);
 var constants = {
     setCount: 20,
     setLength: 30,
