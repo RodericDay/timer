@@ -4,22 +4,22 @@ class Sound {
 
     constructor(path)
     {
-        var self = this;
-
-        function decode(event) {
-            audioCtx.decodeAudioData(event.target.response, buffer);
-        }
-        function buffer(decodedBuffer) {
-            self.bufferedSound = decodedBuffer;
-        }
-
         var xhr = new XMLHttpRequest();
         xhr.open('GET', path, true);
         xhr.responseType = 'arraybuffer';
-        xhr.addEventListener("load", decode);
+        xhr.addEventListener("load", this.decode.bind(this));
         xhr.send();
     }
 
+    decode(event)
+    {
+        audioCtx.decodeAudioData(event.target.response, this.buffer.bind(this));
+    }
+
+    buffer(decodedBuffer)
+    {
+        this.bufferedSound = decodedBuffer;
+    }
 
     play()
     {

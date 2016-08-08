@@ -1,6 +1,9 @@
 {
   "name": "Timer",
   "short_name": "Timer",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "icon.png",
@@ -22,10 +25,5 @@
       "sizes": "192x192",
       "type": "image/png"
     }
-  ],
-  "start_url": "/",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#2196F3",
-  "theme_color": "#2196F3"
+  ]
 }
