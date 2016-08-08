@@ -5,7 +5,7 @@ body {
 }
 #display {
     color: white;
-    font-size: 20pt;
+    font-size: 50pt;
 }
 button {
     font-size: 15pt;
@@ -13,3 +13,4 @@ button {
     border: none;
     padding: 10px 20px;
 }
+
