@@ -88,8 +88,26 @@ function updateDisplay() {
     var D = parseInt(state.millisecondsLeft/100);
     var formatted = A+":"+('00'+C).slice(-2)+'.'+D;
     document.title = state.active ? formatted : "Timer";
-    display.textContent = formatted;
     /* ui state */
+    var r = 125,
+        f = (state.secondsLeft + state.millisecondsLeft/1000)/constants.setLength,
+        t = Math.PI/180 * f*360,
+        l = t < Math.PI ? 0 : 1,
+        x = r*Math.cos(-t),
+        y = r*Math.sin(-t);
+    /*
+    * move to 0,0
+    * move up r
+    * do a sweep r,r
+    * rotate 45 cause clocks have top @ 90d
+    * toggle large or small arc as required
+    * end at x, y
+    */
+    var anim = `M0,0 h${r} A${r},${r},0,${l},0,${x},${y} z`;
+    loader.setAttribute('d', anim);
+    border.setAttribute('d', anim);
+
+    display.textContent = formatted;
     actionButton.textContent = state.active ? "stop" : "start";
     resetButton.disabled = state.active;
 }

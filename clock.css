@@ -13,3 +13,7 @@ button {
     border: none;
     padding: 10px 20px;
 }
+svg {
+    display: block;
+    margin: 0 auto;
+}

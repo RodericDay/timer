@@ -14,7 +14,11 @@
     <script src="clock.js"></script>
   </head>
   <body>
-    <div id="display">&nbsp;</div>
+    <svg width="256" height="256" viewbox="0 0 256 256">
+      <path id="border" transform="translate(128, 128) rotate(-90)" fill="red" stroke="black"/>
+      <path id="loader" transform="translate(128, 128) rotate(-90) scale(0.8)" fill="black"/>
+      <text id="display" x="128" y="146" text-anchor="middle" fill="white"></text>
+    </svg>
     <button id="actionButton" onclick="toggle(this)" autofocus>start</button>
     <button id="resetButton" onclick="reset()">reset</button>
   </body>
