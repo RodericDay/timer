@@ -1,0 +1,9 @@
+<!--
+* move to 0,0; move up r; do a sweep r,r;
+* toggle large or small arc as required; end at x, y;
+!-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-9 -9 18 18">
+    <circle fill="red" cx="0" cy="0" r="8"/>
+    <circle fill="black" cx="-0.2" cy="-0.2" r="7.8"/>
+    <polygon fill="white" points="-3,-4 -3,4 4,0"/>
+</svg>

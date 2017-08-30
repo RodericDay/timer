@@ -1,25 +1,30 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Timer</title>
-    <meta name="description" content="A good timer.">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Timer</title>
+<meta name="description" content="A good timer." />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!-- when all browsers are supported, we can drop manup.js -->
-    <link rel="manifest" href="manifest.webmanifest">
-    <script src="manup.min.js"></script>
+<!-- when all browsers are supported, we can drop manup.js -->
+<!-- <link rel="manifest" href="manifest.webmanifest"/> -->
+<!-- <script src="manup.min.js"></script> -->
 
-    <link rel="stylesheet" type="text/css" href="clock.css"/>
-    <script src="clock.js"></script>
-  </head>
-  <body>
-    <svg width="256" height="256" viewbox="0 0 256 256">
-      <path id="border" transform="translate(128, 128) rotate(-90)" fill="red" stroke="black"/>
-      <path id="loader" transform="translate(128, 128) rotate(-90) scale(0.8)" fill="black"/>
-      <text id="display" x="128" y="146" text-anchor="middle" fill="white"></text>
-    </svg>
-    <button id="actionButton" onclick="toggle(this)" autofocus>start</button>
+<link rel="stylesheet" type="text/css" href="clock.css"/>
+<link rel="icon" href="icon.svg"/>
+<link rel="apple-touch-icon" href="icon.png"/>
+<script src="clock.js"></script>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewbox="-128 -128 256 256">
+    <path id="border" fill="red" stroke="black"/>
+    <path id="loader" transform="scale(0.8)" fill="black"/>
+    <text id="display" y="18" text-anchor="middle" fill="white"></text>
+  </svg>
+  <p>
+    <button id="actionButton" onclick="toggle()">start</button>
     <button id="resetButton" onclick="reset()">reset</button>
-  </body>
-</html>
+  </p>
+  <p>No sound? Try adding this page to your mobile Home Screen.</p>
+  <p>More at <a href="https://roderic.ca">roderic.ca</a>.</p>
+</body>

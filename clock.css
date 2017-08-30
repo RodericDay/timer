@@ -2,6 +2,10 @@ body {
     margin: 100 auto;
     text-align: center;
     background-color: black;
+    color: white;
+}
+a {
+    color: white;
 }
 #display {
     color: white;
